@@ -1,7 +1,14 @@
+using ala_alsanea_ebda3soft_demo.Persistent;
+using ala_alsanea_ebda3soft_demo.Persistent.Seed;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnectionString")));
+
+
 
 var app = builder.Build();
 

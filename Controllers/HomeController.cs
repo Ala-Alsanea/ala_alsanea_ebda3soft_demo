@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using ala_alsanea_ebda3soft_demo.Models;
+using ala_alsanea_ebda3soft_demo.Persistent.Models;
+
 
 namespace ala_alsanea_ebda3soft_demo.Controllers;
 
