@@ -45,6 +45,30 @@ namespace ala_alsanea_ebda3soft_demo.Persistent.Seed
                 _context.SaveChanges();
             }
 
+            if (!_context.Categories.Any())
+            {
+                var categories = new List<Category>()
+                {
+                    new()
+                    {
+                        Name = "cat 1",
+                        unit = UnitType.unit1
+                    },
+                    new()
+                    {
+                        Name = "cat 2",
+                        unit = UnitType.unit2
+                    },
+                    new()
+                    {
+                        Name = "cat 3",
+                        unit = UnitType.unit1
+                    },
+                };
+                _context.Categories.AddRange(categories);
+                _context.SaveChanges();
+            }
+
 
         }
     }
