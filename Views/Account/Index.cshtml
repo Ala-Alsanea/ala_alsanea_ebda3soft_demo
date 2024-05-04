@@ -1,7 +1,47 @@
-﻿@{
+﻿@model IEnumerable<Account>
+@{
     ViewData["Title"] = "Account Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Account</h1>
+<div class=" d-flex justify-content-between m-5">
+    <h1 class="display-4">Accounts Guidance</h1>
+
+    <div class="d-flex align-items-center">
+        <a class="btn btn-primary" href="#" role="button">Create</a>
+    </div>
+</div>
+
+
+
+<div class="container ">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Account ID</th>
+                        <th scope="col">Account Name</th>
+                        <th scope="col">Account Type</th>
+                        <th scope="col">Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td scope="row">@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.accountType</td>
+                            <td>
+                                <a href="#"><i class="bi bi-pen"></i> Edit</a>
+                                |
+                                <a href="#"><i class="bi bi-trash-fill"></i> Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
