@@ -4,6 +4,9 @@
 
     var isActiveAccount = ViewContext.RouteData.Values["Controller"]?.ToString() == "Account" &&
     ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "";
+
+    var isActiveCategory = ViewContext.RouteData.Values["Controller"]?.ToString() == "Category" &&
+    ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "";
 }
 
 <!DOCTYPE html>
@@ -37,6 +40,10 @@
                         <li class="nav-item">
                             <a class="nav-link @isActiveAccount" asp-area="" asp-controller="Account"
                                 asp-action="Index">Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @isActiveCategory" asp-area="" asp-controller="Category"
+                                asp-action="Index">Category</a>
                         </li>
                     </ul>
                 </div>
