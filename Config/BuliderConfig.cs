@@ -15,6 +15,7 @@ namespace ala_alsanea_ebda3soft_demo.Config
 
             // bind cli commands
             builder.Services.AddTransient<Seeder>();
+            builder.Services.AddTransient<Truncate>();
 
             builder.Services.AddControllersWithViews();
 
