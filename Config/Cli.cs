@@ -10,11 +10,11 @@ namespace ala_alsanea_ebda3soft_demo.Config
     {
         public static void Boot(WebApplication app, string[] args)
         {
-            if (args.Length == 1 && args[0].ToLower() == "seed-data")
+            if (args.Length == 1 && args[0].ToLower() == "seed-db")
             {
                 SeedData(app);
                 // terminate the application and throw an exception
-                app.StopAsync().GetAwaiter().GetResult();
+                // app.StopAsync().GetAwaiter().GetResult();
             }
 
             if (args.Length == 1 && args[0].ToLower() == "truncate-database")

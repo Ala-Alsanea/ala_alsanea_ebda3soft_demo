@@ -1,0 +1,25 @@
+# version: "3.4"  # optional since v1.27.0
+services:
+  ebda3:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: ebda3-demo-img
+    container_name: ebda3_application
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+      - "8080:8080"
+    depends_on:
+      - db
+  db:
+    # context: ./DB
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ebda3_db
+    restart: always
+    ports: # not actually needed, because the two services are on the same network
+      - "1433:1433" 
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=1234@Pass
+      - MSSQL_PID=Express
