@@ -1,12 +1,9 @@
 ﻿@{
-    var isActiveHome = ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" &&
-    ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "";
+    var isActiveHome = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Home") == true ? "active" : "";
 
-    var isActiveAccount = ViewContext.RouteData.Values["Controller"]?.ToString() == "Account" &&
-    ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "";
+    var isActiveAccount = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Account") == true ? "active" : "";
 
-    var isActiveCategory = ViewContext.RouteData.Values["Controller"]?.ToString() == "Category" &&
-    ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "";
+    var isActiveCategory = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Category") == true  ? "active" : "";
 }
 
 <!DOCTYPE html>

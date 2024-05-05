@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Account>
+@using ala_alsanea_ebda3soft_demo.Persistent.Enums    
+@{
+    ViewData["Title"] = "Account Page Create";
+}
+
+
+<div class=" d-flex justify-content-between m-5">
+    <h1 class="display-4">Accounts Guidance</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="display-6 text-center">Create Account</h1>
+            <form method="post">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Account Name</label>
+                    <input  type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="mb-3">
+                    <label for="accountType" class="form-label">Account Type</label>  
+
+                    @Html.DropDownList("accountType",
+                    Html.GetEnumSelectList<AccountType>(),
+                    "Select Account Type",
+                    new { @class = "form-control" })
+
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+    </div>
+</div>

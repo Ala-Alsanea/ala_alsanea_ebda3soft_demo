@@ -16,7 +16,7 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly AppDbContext _context;
 
-        public AccountController(ILogger<AccountController> logger , AppDbContext context)
+        public AccountController(ILogger<AccountController> logger, AppDbContext context)
         {
             _logger = logger;
             _context = context;
@@ -27,6 +27,13 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
 
             List<Account> accounts = _context.Accounts.ToList();
             return View(accounts);
+        }
+
+
+        public IActionResult Create()
+        {
+
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
