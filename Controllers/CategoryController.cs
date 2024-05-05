@@ -14,7 +14,7 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
     public class CategoryController : Controller
     {
         private readonly ILogger<CategoryController> _logger;
-                private readonly AppDbContext _context;
+        private readonly AppDbContext _context;
 
 
         public CategoryController(ILogger<CategoryController> logger, AppDbContext context)
@@ -29,6 +29,65 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             // Console.WriteLine(categories);
             return View(categories);
         }
+
+
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Category category)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+            _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult Edit(long id)
+        {
+            Category? category = _context.Categories.Find(id);
+            if (category == null)
+            {
+                return View("Error");
+            }
+            return View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Category category)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(category);
+            }
+            _context.Categories.Update(category);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
