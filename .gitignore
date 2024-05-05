@@ -6,6 +6,8 @@
 # dotenv files
 .env
 
+*.bkp
+
 # User-specific files
 *.rsuser
 *.suo
