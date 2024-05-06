@@ -77,7 +77,7 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(long id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            Category? category = await _context.Categories.FindAsync(id);
             if (category == null)
             {
                 return NotFound();

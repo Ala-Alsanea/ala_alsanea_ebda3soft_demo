@@ -1,0 +1,76 @@
+﻿@using ala_alsanea_ebda3soft_demo.Persistent.Enums
+@using ala_alsanea_ebda3soft_demo.Persistent.ViewModel
+@model InvoiceVM
+
+@{
+    ViewData["Title"] = "Invoice Page Create";
+}
+
+
+<div class=" d-flex justify-content-between m-5">
+    <h1 class="display-4">Invoices Guidance</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="display-6 text-center">Create Invoice</h1>
+            <form method="post">
+                <div class="mb-3">
+                    <label asp-for="InvoiceType" class="form-label">Invoice Type</label>
+                    @Html.DropDownList("InvoiceType",
+                             Html.GetEnumSelectList<InvoiceType>(),
+                             "Select Invoice Type",
+                             new { @class = "form-control" })
+                    <span asp-validation-for="InvoiceType" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AccountId" class="form-label">Account Name</label>
+                    @Html.DropDownList("AccountId",
+                             new SelectList(ViewBag.Accounts, "Id", "Name"),
+                             "Select Account",
+                             new { @class = "form-control" })
+                    <span asp-validation-for="AccountId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label">Category Name</label>
+                    @Html.DropDownList("CategoryId",
+                             new SelectList(ViewBag.Category, "Id", "Name"),
+                             "Select Category",
+                             new { @class = "form-control" })
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PayType" class="form-label">Pay Type</label>
+
+                    @Html.DropDownList("PayType",
+                             Html.GetEnumSelectList<PayType>(),
+                             "Select Invoice Type",
+                             new { @class = "form-control" })
+
+                    <span asp-validation-for="PayType" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Qty" class="form-label">Invoice Qty</label>
+                    <input asp-for="Qty" type="number" class="form-control" id="Qty" name="Qty">
+                    <span asp-validation-for="Qty" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="UnitPrice" class="form-label">Invoice UnitPrice</label>
+                    <input asp-for="UnitPrice" type="number" class="form-control" id="UnitPrice" name="UnitPrice">
+                    <span asp-validation-for="UnitPrice" class="text-danger"></span>
+                </div>
+                
+
+                <button type="submit" class="btn btn-primary">Create</button>
+
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -77,7 +77,7 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(long id)
         {
-            var account = await _context.Accounts.FindAsync(id);
+            Account? account = await _context.Accounts.FindAsync(id);
             if (account == null)
             {
                 return NotFound();

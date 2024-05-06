@@ -1,9 +1,14 @@
 ﻿@{
     var isActiveHome = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Home") == true ? "active" : "";
 
-    var isActiveAccount = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Account") == true ? "active" : "";
+    var isActiveAccount = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Account") == true ? "active" :
+    "";
 
-    var isActiveCategory = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Category") == true  ? "active" : "";
+    var isActiveCategory = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Category") == true ? "active" :
+    "";
+
+    var isActiveInvoice = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Invoice") == true ? "active" :
+    "";
 }
 
 <!DOCTYPE html>
@@ -41,6 +46,11 @@
                         <li class="nav-item">
                             <a class="nav-link @isActiveCategory" asp-area="" asp-controller="Category"
                                 asp-action="Index">Category</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @isActiveInvoice" asp-area="" asp-controller="Invoice"
+                                asp-action="Index">Invoice</a>
                         </li>
                     </ul>
                 </div>

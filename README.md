@@ -3,9 +3,9 @@
 - [x] account crud 
 - [x] category crud
 ----
-- [ ] link enities with relation
+- [x] link enities with relation
 ----
-- [ ] invoice crud
+- [x] invoice crud
 - [ ] receipt crud
 -------
 - [ ] carate detail page for account with list of invoices and receipts 
