@@ -16,5 +16,12 @@ namespace ala_alsanea_ebda3soft_demo.Persistent.Models
 
         public AccountType accountType { get; set; }
 
+        public ICollection<Invoice> Invoices { get; set; }
+        public ICollection<Receipt> Receipts { get; set; }
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, Name: {Name}, AccountType: {accountType}";
+        }
     }
 }

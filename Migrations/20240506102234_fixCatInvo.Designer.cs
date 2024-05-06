@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ala_alsanea_ebda3soft_demo.Persistent;
 
@@ -11,9 +12,11 @@ using ala_alsanea_ebda3soft_demo.Persistent;
 namespace ala_alsanea_ebda3soft_demo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240506102234_fixCatInvo")]
+    partial class fixCatInvo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,7 +156,7 @@ namespace ala_alsanea_ebda3soft_demo.Migrations
             modelBuilder.Entity("ala_alsanea_ebda3soft_demo.Persistent.Models.Receipt", b =>
                 {
                     b.HasOne("ala_alsanea_ebda3soft_demo.Persistent.Models.Account", "Account")
-                        .WithMany("Receipts")
+                        .WithMany()
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -164,8 +167,6 @@ namespace ala_alsanea_ebda3soft_demo.Migrations
             modelBuilder.Entity("ala_alsanea_ebda3soft_demo.Persistent.Models.Account", b =>
                 {
                     b.Navigation("Invoices");
-
-                    b.Navigation("Receipts");
                 });
 
             modelBuilder.Entity("ala_alsanea_ebda3soft_demo.Persistent.Models.Category", b =>

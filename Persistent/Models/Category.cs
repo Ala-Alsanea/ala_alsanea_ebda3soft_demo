@@ -14,5 +14,13 @@ namespace ala_alsanea_ebda3soft_demo.Persistent.Models
         public string Name { get; set; }
 
         public UnitType unit { get; set; }
+
+        public ICollection<Invoice> Invoices { get; set; }
+
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, Name: {Name}, Unit: {unit}";
+        }
     }
 }
