@@ -20,18 +20,31 @@ namespace ala_alsanea_ebda3soft_demo.Config
 
             builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnectionString")));
 
-            // Get the service provider
-            var serviceProvider = builder.Services.BuildServiceProvider();
+            // Get the IWebHostEnvironment service
+            var env = builder.Services.BuildServiceProvider().GetRequiredService<IWebHostEnvironment>();
 
-            // Get a scope to retrieve scoped services
-            using(var scope = serviceProvider.CreateScope())
+            // Check if the application is in the development environment
+            if (env.IsDevelopment())
             {
-                // Get the AppDbContext instance
-                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-                // Apply the migrations
-                dbContext.Database.Migrate();
+                Console.WriteLine("development env");
             }
+            else
+            {
+                Console.WriteLine("deploy environment");
+
+                var serviceProvider = builder.Services.BuildServiceProvider();
+                // Get a scope to retrieve scoped services
+                using (var scope = serviceProvider.CreateScope())
+                {
+                    // Get the AppDbContext instance
+                    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+                    // Apply the migrations
+                    dbContext.Database.Migrate();
+                }
+            }
+
+            // Get the service provider
 
             return builder;
         }
