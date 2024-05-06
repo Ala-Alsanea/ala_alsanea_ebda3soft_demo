@@ -5,12 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using ala_alsanea_ebda3soft_demo.Persistent;
 using ala_alsanea_ebda3soft_demo.Persistent.Models;
+using ala_alsanea_ebda3soft_demo.Persistent.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace ala_alsanea_ebda3soft_demo.Controllers
 {
-    [Route("[controller]")]
+    // [Route("[controller]")]
     public class ReceiptController : Controller
     {
         private readonly ILogger<ReceiptController> _logger;
@@ -25,51 +27,162 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
 
         public IActionResult Index()
         {
-            List<Receipt> receipts = _context.Receipts.ToList();
+            List<Receipt> receipts = _context.Receipts
+            .Include(i => i.Account)
+            .ToList();
+
             return View(receipts);
         }
 
 
+
         public IActionResult Create()
         {
+
+            // Get the list of accounts from your database
+            var accounts = _context.Accounts.ToList();
+
+            // Set ViewBag.Accounts
+            ViewBag.Accounts = accounts;
+
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Receipt receipt)
+        public async Task<IActionResult> Create(ReceiptVM receiptVM)
         {
+
+            // Console.WriteLine("\ninvoice : " + invoice.ToString());
+            // Console.WriteLine($"\n{invoiceVM.AccountId}\n");
 
             if (!ModelState.IsValid)
             {
-                return View(receipt);
+                var accounts = _context.Accounts.ToList();
+
+                // Set ViewBag.Accounts
+                ViewBag.Accounts = accounts;
+
+                var errors = ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .Select(x => new { x.Key, x.Value.Errors })
+                    .ToArray();
+                // Log the errors or return them in the view
+                foreach (var error in errors)
+                {
+                    Console.WriteLine($"\nKey: {error.Key}, Errors: {string.Join(", ", error.Errors.Select(e => e.ErrorMessage))}\n");
+                }
+
+                return View(receiptVM);
+
             }
+
+            var accountExists = _context.Accounts.Any(a => a.Id == receiptVM.AccountId);
+
+            if (!accountExists)
+            {
+                // Handle the case where the AccountId does not exist
+                // You could return an error message to the view
+                ModelState.AddModelError("", "The provided AccountId does not exist.");
+                return View(receiptVM);
+            }
+
+
+            Receipt receipt = new Receipt
+            {
+                AccountId = receiptVM.AccountId,
+                ReceiptType = receiptVM.ReceiptType,
+                Price = receiptVM.Price,
+                Description = receiptVM.Description
+            };
+
             _context.Receipts.Add(receipt);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
+
+
         public IActionResult Edit(long id)
         {
-            Receipt? receipt = _context.Receipts.Find(id);
+            Receipt? receipt = _context.Receipts
+                                .Include(i => i.Account)
+                                .FirstOrDefault(i => i.Id == id);
+
             if (receipt == null)
             {
                 return View("Error");
             }
-            return View(receipt);
+
+            ReceiptVM receiptVM = new ReceiptVM
+            {
+                Id = receipt.Id,
+                AccountId = receipt.AccountId,
+                ReceiptType = receipt.ReceiptType,
+                Price = receipt.Price,
+                Description = receipt.Description
+
+            };
+
+            // Populate the ViewBag properties
+            ViewBag.Accounts = _context.Accounts.ToList();
+
+            return View(receiptVM);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Receipt receipt)
+        public async Task<IActionResult> Edit(ReceiptVM receiptVM)
         {
+            // Console.WriteLine("\ninvoice : " + invoice.ToString());
+            // Console.WriteLine($"\n{invoiceVM.AccountId}\n");
 
             if (!ModelState.IsValid)
             {
-                return View(receipt);
+                var accounts = _context.Accounts.ToList();
+
+                // Set ViewBag.Accounts
+                ViewBag.Accounts = accounts;
+
+
+                var errors = ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .Select(x => new { x.Key, x.Value.Errors })
+                    .ToArray();
+
+                // Log the errors or return them in the view
+                foreach (var error in errors)
+                {
+                    Console.WriteLine($"\nKey: {error.Key}, Errors: {string.Join(", ", error.Errors.Select(e => e.ErrorMessage))}\n");
+                }
+
+                return View(receiptVM);
+
             }
+
+            var accountExists = _context.Accounts.Any(a => a.Id == receiptVM.AccountId);
+
+            if (!accountExists )
+            {
+                // Handle the case where the AccountId does not exist
+                // You could return an error message to the view
+                ModelState.AddModelError("", "The provided AccountId does not exist.");
+                return View(receiptVM);
+            }
+
+
+            Receipt receipt = new Receipt
+            {
+                Id = receiptVM.Id,
+                AccountId = receiptVM.AccountId,
+                ReceiptType = receiptVM.ReceiptType,
+                Price = receiptVM.Price,
+                Description = receiptVM.Description
+            };
+
             _context.Receipts.Update(receipt);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Delete(long id)

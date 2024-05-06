@@ -1,0 +1,57 @@
+﻿@using ala_alsanea_ebda3soft_demo.Persistent.Enums
+@using ala_alsanea_ebda3soft_demo.Persistent.ViewModel
+@model ReceiptVM
+
+@{
+    ViewData["Title"] = "Receipt Page Create";
+}
+
+
+<div class=" d-flex justify-content-between m-5">
+    <h1 class="display-4">Receipts Guidance</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="display-6 text-center">Create Receipt</h1>
+            <form method="post">
+
+                <div class="mb-3">
+                    <label asp-for="ReceiptType" class="form-label">Receipt Type</label>
+                    @Html.DropDownList("ReceiptType",
+                             Html.GetEnumSelectList<ReceiptType>(),
+                             "Select Receipt Type",
+                             new { @class = "form-control" })
+                    <span asp-validation-for="ReceiptType" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AccountId" class="form-label">Account Name</label>
+                    @Html.DropDownList("AccountId",
+                             new SelectList(ViewBag.Accounts, "Id", "Name"),
+                             "Select Account",
+                             new { @class = "form-control" })
+                    <span asp-validation-for="AccountId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label">Receipt Price</label>
+                    <input asp-for="Price" type="number" class="form-control" id="Price" name="Price">
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Receipt Description</label>
+                    <textarea asp-for="Description" name="Description" id="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Create</button>
+
+
+            </form>
+        </div>
+    </div>
+</div>

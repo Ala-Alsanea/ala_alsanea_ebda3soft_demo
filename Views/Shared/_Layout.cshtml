@@ -1,14 +1,13 @@
 ﻿@{
     var isActiveHome = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Home") == true ? "active" : "";
 
-    var isActiveAccount = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Account") == true ? "active" :
-    "";
+    var isActiveAccount = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Account") == true ? "active" : "";
 
-    var isActiveCategory = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Category") == true ? "active" :
-    "";
+    var isActiveCategory = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Category") == true ? "active" : "";
 
-    var isActiveInvoice = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Invoice") == true ? "active" :
-    "";
+    var isActiveInvoice = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Invoice") == true ? "active" : "";
+
+    var isActiveReceipt = ViewContext.RouteData.Values["Controller"]?.ToString()?.Contains("Receipt") == true ? "active" : "";
 }
 
 <!DOCTYPE html>
@@ -51,6 +50,11 @@
                         <li class="nav-item">
                             <a class="nav-link @isActiveInvoice" asp-area="" asp-controller="Invoice"
                                 asp-action="Index">Invoice</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @isActiveReceipt" asp-area="" asp-controller="Receipt"
+                                asp-action="Index">Receipt</a>
                         </li>
                     </ul>
                 </div>
