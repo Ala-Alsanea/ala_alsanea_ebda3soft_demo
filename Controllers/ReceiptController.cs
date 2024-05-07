@@ -56,6 +56,12 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             // Get the list of accounts from your database
             var accounts = _context.Accounts.ToList();
 
+            if (accounts.Count == 0)
+            {
+                return RedirectToAction("Create", "Account");
+                // return NotFound("No Accounts found to create an invoice. Please create an account first.");
+            }
+
             // Set ViewBag.Accounts
             ViewBag.Accounts = accounts;
 

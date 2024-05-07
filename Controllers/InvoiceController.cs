@@ -59,6 +59,24 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             var accounts = _context.Accounts.ToList();
             var category = _context.Categories.ToList();
 
+            // if (accounts.Count == 0 || category.Count == 0)
+            // {
+
+            //     return NotFound("No Accounts or Categories found to create an invoice. Please create an account or category first.");
+            // }
+
+            if (accounts.Count == 0)
+            {
+                // Redirect to the account creation page
+                return RedirectToAction("Create", "Account");
+            }
+
+            if (category.Count == 0)
+            {
+                // Redirect to the category creation page
+                return RedirectToAction("Create", "Category");
+            }
+
             // Set ViewBag.Accounts
             ViewBag.Accounts = accounts;
             ViewBag.Category = category;
