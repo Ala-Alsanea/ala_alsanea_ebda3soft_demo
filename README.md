@@ -8,9 +8,9 @@
 - [x] invoice crud
 - [x] receipt crud
 -------
-- [ ] carate detail page for account with list of invoices and receipts 
-- [ ] create detail page for invoice 
-- [ ] create detail page for receipt
+- [x] carate detail page for account with list of invoices and receipts 
+- [x] create detail page for invoice 
+- [x] create detail page for receipt
 -----
 - [x] add docker file
 - [x] add docker-compose file
