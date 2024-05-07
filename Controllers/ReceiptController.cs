@@ -34,6 +34,20 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             return View(receipts);
         }
 
+        public IActionResult Details(long id)
+        {
+
+            Receipt receipt = _context.Receipts
+            .Include(i => i.Account)
+            .Where(i => i.Id == id)
+            .FirstOrDefault();
+
+            if (null == receipt)
+                return NotFound();
+
+            return View(receipt);
+        }
+
 
 
         public IActionResult Create()
@@ -160,7 +174,7 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
 
             var accountExists = _context.Accounts.Any(a => a.Id == receiptVM.AccountId);
 
-            if (!accountExists )
+            if (!accountExists)
             {
                 // Handle the case where the AccountId does not exist
                 // You could return an error message to the view
