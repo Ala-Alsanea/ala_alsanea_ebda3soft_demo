@@ -1,0 +1,52 @@
+@model Category
+
+@{
+    ViewData["Title"] = "Account Page Details";
+}
+
+<div class="container">
+
+    <div class="container mt-5">
+        <h2>Account Details</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.Name</h5>
+                        <p class="card-text">
+                            <strong>Id:</strong> @Model.Id <br />
+                            <strong>Unit:</strong> @Model.unit <br />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>Invoices</h3>
+        <div class="row">
+            @foreach (var invoice in Model.Invoices)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"># @invoice.Id</h5>
+                            <p class="card-text">
+                                <strong>Category:</strong> @invoice.Account.Name <br />
+                                <strong>Type:</strong> @invoice.InvoiceType <br />
+                                <strong>Unit Price:</strong> @invoice.UnitPrice <br />
+                                <strong>Quantaty:</strong> @invoice.Qty <br />
+                                <strong>Pay Type:</strong> @invoice.PayType <br />
+                                <strong>Date:</strong> @invoice.Date <br />
+                                <strong>TotalPrice:</strong> @invoice.TotalPrice <br />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+</div>

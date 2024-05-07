@@ -7,6 +7,7 @@ using ala_alsanea_ebda3soft_demo.Persistent;
 using ala_alsanea_ebda3soft_demo.Persistent.Models;
 using ala_alsanea_ebda3soft_demo.Persistent.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace ala_alsanea_ebda3soft_demo.Controllers
@@ -29,6 +30,21 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             List<Category> categories = _context.Categories.ToList();
             // Console.WriteLine(categories);
             return View(categories);
+        }
+
+        public IActionResult Details(long id)
+        {
+
+            Category category = _context.Categories
+            .Include(i => i.Invoices)
+            .ThenInclude(i => i.Account)
+            .Where(i => i.Id == id)
+            .FirstOrDefault();
+
+            if (null == category)
+                return NotFound();
+
+            return View(category);
         }
 
 
@@ -89,11 +105,12 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
                 return View(categoryVM);
             }
 
-            Category category = new Category(){
+            Category category = new Category()
+            {
 
-                Id=categoryVM.Id,
-                Name=categoryVM.Name,
-                unit=categoryVM.unit
+                Id = categoryVM.Id,
+                Name = categoryVM.Name,
+                unit = categoryVM.unit
             };
 
             _context.Categories.Update(category);
