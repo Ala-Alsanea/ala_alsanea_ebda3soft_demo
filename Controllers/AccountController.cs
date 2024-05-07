@@ -37,6 +37,7 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             Account account = _context.Accounts
             .Include(i => i.Receipts)
             .Include(i => i.Invoices)
+            .ThenInclude(i => i.Category)
             .Where(i => i.Id == id)
             .FirstOrDefault();
 
@@ -90,7 +91,7 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
 
         public IActionResult Edit(long id)
         {
-            Account? account = _context.Accounts.FirstOrDefault(i=> i.Id == id);
+            Account? account = _context.Accounts.FirstOrDefault(i => i.Id == id);
 
             if (account == null)
             {
@@ -99,7 +100,7 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
 
             AccountVM accountVM = new AccountVM()
             {
-                Id= account.Id,
+                Id = account.Id,
                 Name = account.Name,
                 accountType = account.accountType
             };
@@ -118,7 +119,7 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
 
             Account account = new Account()
             {
-                Id= accountVM.Id,
+                Id = accountVM.Id,
                 Name = accountVM.Name,
                 accountType = accountVM.accountType
             };
