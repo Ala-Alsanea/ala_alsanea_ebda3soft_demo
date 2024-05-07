@@ -37,6 +37,21 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             return View(invoices);
         }
 
+        public IActionResult Details(long id)
+        {
+
+            Invoice invoice = _context.Invoices
+            .Include(i => i.Account)
+            .Include(i => i.Category)
+            .Where(i => i.Id == id)
+            .FirstOrDefault();
+
+            if (null == invoice)
+                return NotFound();
+
+            return View(invoice);
+        }
+
         public IActionResult Create()
         {
 
