@@ -12,6 +12,10 @@
 - [x] create detail page for invoice 
 - [x] create detail page for receipt
 -----
+- [ ] handel errors
+-----
+- [ ] add reports 
+-----
 - [x] add docker file
 - [x] add docker-compose file
 ---
