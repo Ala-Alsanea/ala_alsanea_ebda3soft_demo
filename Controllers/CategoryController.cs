@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ala_alsanea_ebda3soft_demo.Persistent;
 using ala_alsanea_ebda3soft_demo.Persistent.Models;
+using ala_alsanea_ebda3soft_demo.Persistent.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -38,13 +39,22 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Category category)
+        public async Task<IActionResult> Create(CategoryVM categoryVM)
         {
 
             if (!ModelState.IsValid)
             {
-                return View(category);
+                return View(categoryVM);
             }
+
+            Category category = new Category()
+            {
+
+                Name = categoryVM.Name,
+                unit = categoryVM.unit
+            };
+
+
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -58,17 +68,34 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             {
                 return View("Error");
             }
-            return View(category);
+
+            CategoryVM categoryVM = new CategoryVM()
+            {
+
+                Name = category.Name,
+                unit = category.unit
+            };
+
+
+            return View(categoryVM);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Category category)
+        public async Task<IActionResult> Edit(CategoryVM categoryVM)
         {
 
             if (!ModelState.IsValid)
             {
-                return View(category);
+                return View(categoryVM);
             }
+
+            Category category = new Category(){
+
+                Id=categoryVM.Id,
+                Name=categoryVM.Name,
+                unit=categoryVM.unit
+            };
+
             _context.Categories.Update(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
