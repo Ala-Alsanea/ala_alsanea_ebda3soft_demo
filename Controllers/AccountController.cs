@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace ala_alsanea_ebda3soft_demo.Controllers
 {
@@ -33,6 +35,23 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             List<Account> accounts = _context.Accounts.ToList();
             return View(accounts);
         }
+
+
+        // public ActionResult Sms()
+        // {
+        //     const string accountSid = "your_account_sid";
+        //     const string authToken = "your_auth_token";
+
+        //     TwilioClient.Init(accountSid, authToken);
+
+        //     var message = MessageResource.Create(
+        //         body: "Hello from ASP.NET MVC!",
+        //         from: new Twilio.Types.PhoneNumber("+1234567890"), // Your Twilio number
+        //         to: new Twilio.Types.PhoneNumber("+0987654321") // Account's number
+        //     );
+
+        //     return Content($"Sent message: {message.Sid}");
+        // }
 
         public IActionResult Report(long id)
         {
@@ -74,7 +93,7 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             ViewData.Add("InvoicesPurchase", InvoicesPurchase);
             ViewData.Add("InvoicesSale", InvoicesSale);
 
-            
+
             ViewData.Add("TotalPriceBond", TotalPriceBond);
             ViewData.Add("TotalPriceExchange", TotalPriceExchange);
 

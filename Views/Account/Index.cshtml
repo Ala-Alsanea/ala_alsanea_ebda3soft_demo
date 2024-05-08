@@ -34,6 +34,8 @@
                                 <td>@item.accountType</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
+                                        @* <a class="btn btn-warning" asp-controller="Account" asp-action="Sms"
+                                            asp-route-id="@item.Id"><i class="bi bi-pen"></i> Sms</a> *@
                                         <a class="btn btn-info" asp-controller="Account" asp-action="Report"
                                             asp-route-id="@item.Id"><i class="bi bi-pen"></i> Report</a>
                                         <a class="btn btn-primary" asp-controller="Account" asp-action="Edit"
