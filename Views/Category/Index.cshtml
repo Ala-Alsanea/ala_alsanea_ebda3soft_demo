@@ -36,12 +36,14 @@
                                 <td>@item.unit</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a class="btn btn-info" asp-controller="Category" asp-action="Details"
-                                            asp-route-id="@item.Id"><i class="bi bi-pen"></i> Details</a>
+
+                                        <a class="btn btn-info" asp-controller="Category" asp-action="Report"
+                                            asp-route-id="@item.Id"><i class="bi bi-pen"></i> Report</a>
                                         <a class="btn btn-primary" asp-controller="Category" asp-action="Edit"
                                             asp-route-id="@item.Id"><i class="bi bi-pen"></i> Edit</a>
                                         <a class="btn btn-danger" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                             data-id="@item.Id"><i class="bi bi-trash-fill"></i> Delete</a>
+
                                     </div>
                                 </td>
                             </tr>

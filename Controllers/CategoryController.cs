@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ala_alsanea_ebda3soft_demo.Persistent;
+using ala_alsanea_ebda3soft_demo.Persistent.Enums;
 using ala_alsanea_ebda3soft_demo.Persistent.Models;
 using ala_alsanea_ebda3soft_demo.Persistent.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,10 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             return View(categories);
         }
 
-        public IActionResult Details(long id)
+
+
+
+        public IActionResult Report(long id)
         {
 
             Category category = _context.Categories
@@ -43,6 +47,14 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
 
             if (null == category)
                 return NotFound();
+
+            // var invoicesBond = category.Invoices
+            //     .Where(i => i.InvoiceType == InvoiceType.bond)
+            //     .ToList();
+
+            // var invoicesExchange = category.Invoices
+            //     .Where(i => i.InvoiceType == InvoiceType.exchange)
+            //     .ToList();
 
             return View(category);
         }

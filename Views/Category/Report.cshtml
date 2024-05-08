@@ -1,0 +1,99 @@
+@model Category
+@using ala_alsanea_ebda3soft_demo.Persistent.Enums;
+
+@{
+    ViewData["Title"] = "Category Page Report";
+
+    List<Invoice> invoicesSale = Model.Invoices
+    .Where(i => i.InvoiceType == InvoiceType.Sale)
+    .ToList();
+
+    List<Invoice> invoicesPurchase = Model.Invoices
+    .Where(i => i.InvoiceType == InvoiceType.Purchase)
+    .ToList();
+
+    int Inventory = invoicesPurchase.Count() - invoicesSale.Count();
+
+
+
+
+}
+
+<div class="container">
+
+    <div class="container mt-5">
+        <h2>Category Report</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.Name</h5>
+                        <p class="card-text">
+                            <strong>Id:</strong> @Model.Id <br />
+                            <strong>Unit:</strong> @Model.unit <br />
+                            <strong>invoices Sale:</strong> @invoicesSale.Count() <br />
+                            <strong>invoices Purchase:</strong> @invoicesPurchase.Count() <br />
+                            <strong>Inventory:</strong> @Inventory <br />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>Invoices Sale</h3>
+        <div class="row">
+            @foreach (var invoice in invoicesSale)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"># @invoice.Id</h5>
+                            <p class="card-text">
+                                <strong>Category:</strong> @invoice.Account.Name <br />
+                                <strong>Type:</strong> @invoice.InvoiceType <br />
+                                <strong>Unit Price:</strong> @invoice.UnitPrice <br />
+                                <strong>Quantaty:</strong> @invoice.Qty <br />
+                                <strong>Pay Type:</strong> @invoice.PayType <br />
+                                <strong>Date:</strong> @invoice.Date <br />
+                                <strong>TotalPrice:</strong> @invoice.TotalPrice <br />
+                            </p>
+                            <a class="btn btn-info" asp-controller="Invoice" asp-action="Details"
+                                asp-route-id="@invoice.Id"><i class="bi bi-pen"></i> Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>Invoices Purchase</h3>
+        <div class="row">
+            @foreach (var invoice in invoicesPurchase)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"># @invoice.Id</h5>
+                            <p class="card-text">
+                                <strong>Category:</strong> @invoice.Account.Name <br />
+                                <strong>Type:</strong> @invoice.InvoiceType <br />
+                                <strong>Unit Price:</strong> @invoice.UnitPrice <br />
+                                <strong>Quantaty:</strong> @invoice.Qty <br />
+                                <strong>Pay Type:</strong> @invoice.PayType <br />
+                                <strong>Date:</strong> @invoice.Date <br />
+                                <strong>TotalPrice:</strong> @invoice.TotalPrice <br />
+                            </p>
+                            <a class="btn btn-info" asp-controller="Invoice" asp-action="Details"
+                                asp-route-id="@invoice.Id"><i class="bi bi-pen"></i> Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+</div>
