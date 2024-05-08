@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ala_alsanea_ebda3soft_demo.Persistent;
+using ala_alsanea_ebda3soft_demo.Persistent.Enums;
 using ala_alsanea_ebda3soft_demo.Persistent.Models;
 using ala_alsanea_ebda3soft_demo.Persistent.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +32,7 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
             return View(accounts);
         }
 
-        public IActionResult Details(long id)
+        public IActionResult Report(long id)
         {
 
             Account account = _context.Accounts
@@ -43,6 +44,37 @@ namespace ala_alsanea_ebda3soft_demo.Controllers
 
             if (null == account)
                 return NotFound();
+
+
+            List<Receipt> ReceiptBond = account.Receipts
+                    .Where(i => i.ReceiptType == ReceiptType.Bond)
+                    .ToList();
+
+            List<Receipt> ReceiptExchange = account.Receipts
+                .Where(i => i.ReceiptType == ReceiptType.Exchange)
+                .ToList();
+
+            List<Invoice> InvoicesSale = account.Invoices
+                .Where(i => i.InvoiceType == InvoiceType.Sale)
+                .ToList();
+
+            List<Invoice> InvoicesPurchase = account.Invoices
+                .Where(i => i.InvoiceType == InvoiceType.Purchase)
+                .ToList();
+
+            double TotalPriceBond = ReceiptBond.Sum(i => i.Price);
+            double TotalPriceExchange = ReceiptExchange.Sum(i => i.Price);
+
+
+            ViewData.Add("ReceiptBond", ReceiptBond);
+            ViewData.Add("ReceiptExchange", ReceiptExchange);
+
+            ViewData.Add("InvoicesPurchase", InvoicesPurchase);
+            ViewData.Add("InvoicesSale", InvoicesSale);
+
+            
+            ViewData.Add("TotalPriceBond", TotalPriceBond);
+            ViewData.Add("TotalPriceExchange", TotalPriceExchange);
 
             return View(account);
         }

@@ -1,0 +1,142 @@
+@model Account
+
+@{
+    ViewData["Title"] = "Account Page Report";
+
+    List<Receipt> receiptBond = ViewData["ReceiptBond"] as List<Receipt>;
+    List<Receipt> receiptExchange = ViewData["ReceiptExchange"] as List<Receipt>;
+    List<Invoice> invoicesSale = ViewData["InvoicesSale"] as List<Invoice>;
+    List<Invoice> invoicesPurchase = ViewData["InvoicesPurchase"] as List<Invoice>;
+    var totalPriceBond = ViewData["TotalPriceBond"];
+    var totalPriceExchange = ViewData["TotalPriceExchange"];
+
+    double Balance = (double)totalPriceExchange - (double)totalPriceBond;
+
+
+}
+
+<div class="container">
+
+    <div class="container mt-5">
+        <h2>Account Report</h2>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.Name</h5>
+                        <p class="card-text">
+                            <strong>Id:</strong> @Model.Id <br />
+                            <strong>Account Type:</strong> @Model.accountType <br />
+                            <strong>Receipt Bond Total Price:</strong> @totalPriceBond <br />
+                            <strong>Receipt Exchange Total Price:</strong> @totalPriceExchange <br />
+                            <strong>Total Balance:</strong> @Balance <br />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>invoices Sale</h3>
+        <div class="row">
+            @foreach (var invoice in invoicesSale)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"># @invoice.Id</h5>
+                            <p class="card-text">
+                                <strong>Category:</strong> @invoice.Category.Name <br />
+                                <strong>Type:</strong> @invoice.InvoiceType <br />
+                                <strong>Unit Price:</strong> @invoice.UnitPrice <br />
+                                <strong>Quantaty:</strong> @invoice.Qty <br />
+                                <strong>Pay Type:</strong> @invoice.PayType <br />
+                                <strong>Date:</strong> @invoice.Date <br />
+                                <strong>TotalPrice:</strong> @invoice.TotalPrice <br />
+                            </p>
+                            <a class="btn btn-info" asp-controller="Invoice" asp-action="Details"
+                                asp-route-id="@invoice.Id"><i class="bi bi-pen"></i> Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>invoices Purchase</h3>
+        <div class="row">
+            @foreach (var invoice in invoicesPurchase)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"># @invoice.Id</h5>
+                            <p class="card-text">
+                                <strong>Category:</strong> @invoice.Category.Name <br />
+                                <strong>Type:</strong> @invoice.InvoiceType <br />
+                                <strong>Unit Price:</strong> @invoice.UnitPrice <br />
+                                <strong>Quantaty:</strong> @invoice.Qty <br />
+                                <strong>Pay Type:</strong> @invoice.PayType <br />
+                                <strong>Date:</strong> @invoice.Date <br />
+                                <strong>TotalPrice:</strong> @invoice.TotalPrice <br />
+                            </p>
+                            <a class="btn btn-info" asp-controller="Invoice" asp-action="Details"
+                                asp-route-id="@invoice.Id"><i class="bi bi-pen"></i> Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>Receipts Bond</h3>
+        <div class="row">
+            @foreach (var receipt in receiptBond)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"># @receipt.Id</h5>
+                            <p class="card-text">
+                                <strong>Type:</strong> @receipt.ReceiptType <br />
+                                <strong>Price:</strong> @receipt.Price <br />
+                                <strong>Date:</strong> @receipt.Date <br />
+                                <strong>Description:</strong> <br /> @receipt.Description <br />
+                            </p>
+                            <a class="btn btn-info" asp-controller="Receipt" asp-action="Details"
+                                asp-route-id="@receipt.Id"><i class="bi bi-pen"></i> Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h3>Receipts Exchange</h3>
+        <div class="row">
+            @foreach (var receipt in receiptExchange)
+            {
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"># @receipt.Id</h5>
+                            <p class="card-text">
+                                <strong>Type:</strong> @receipt.ReceiptType <br />
+                                <strong>Price:</strong> @receipt.Price <br />
+                                <strong>Date:</strong> @receipt.Date <br />
+                                <strong>Description:</strong> <br /> @receipt.Description <br />
+                            </p>
+                            <a class="btn btn-info" asp-controller="Receipt" asp-action="Details"
+                                asp-route-id="@receipt.Id"><i class="bi bi-pen"></i> Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
