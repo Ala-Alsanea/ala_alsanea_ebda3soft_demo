@@ -7,6 +7,7 @@ using ala_alsanea_ebda3soft_demo.Persistent;
 using ala_alsanea_ebda3soft_demo.Persistent.Enums;
 using ala_alsanea_ebda3soft_demo.Persistent.Models;
 using ala_alsanea_ebda3soft_demo.Persistent.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Logging;
 namespace ala_alsanea_ebda3soft_demo.Controllers
 {
     // [Route("[controller]")]
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ala_alsanea_ebda3soft_demo.Persistent;
+using ala_alsanea_ebda3soft_demo.Persistent.Models;
 using ala_alsanea_ebda3soft_demo.Persistent.Seed;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,12 +14,14 @@ namespace ala_alsanea_ebda3soft_demo.Config
         public static WebApplicationBuilder Boot(WebApplicationBuilder builder)
         {
             // bind cli commands
+            builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnectionString")));
+            
             builder.Services.AddTransient<Seeder>();
             builder.Services.AddTransient<Truncate>();
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppDbContext>();
 
-            builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("SQLServerConnectionString")));
+            builder.Services.AddControllersWithViews();
 
             // Get the IWebHostEnvironment service
             var env = builder.Services.BuildServiceProvider().GetRequiredService<IWebHostEnvironment>();

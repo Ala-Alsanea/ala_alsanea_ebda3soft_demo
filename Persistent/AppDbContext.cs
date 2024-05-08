@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ala_alsanea_ebda3soft_demo.Persistent.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ala_alsanea_ebda3soft_demo.Persistent
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -17,6 +18,9 @@ namespace ala_alsanea_ebda3soft_demo.Persistent
         public DbSet<Category> Categories { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
+        public  DbSet<User> Users { get; set; }
+
+        
 
         // override OnModelCreating
 
