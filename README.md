@@ -33,3 +33,21 @@
 1. the User entity is used to be an auth entity.
 1. the account entity is used to be linked with another entity for demonstration purposes.
 1. github repo [here](https://github.com/Ala-Alsanea/ala_alsanea_ebda3soft_demo)
+1. Send sms is implemented in ./Controllers/AccountController.cs
+```dotnetcli
+        public ActionResult Sms()
+        {
+            const string accountSid = "your_account_sid";
+            const string authToken = "your_auth_token";
+
+            TwilioClient.Init(accountSid, authToken);
+
+            var message = MessageResource.Create(
+                body: "Hello from ASP.NET MVC!",
+                from: new Twilio.Types.PhoneNumber("+1234567890"), // Your Twilio number
+                to: new Twilio.Types.PhoneNumber("+0987654321") // Account's number
+            );
+
+            return Content($"Sent message: {message.Sid}");
+        }
+```
